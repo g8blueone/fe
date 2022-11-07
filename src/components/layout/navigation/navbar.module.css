@@ -1,0 +1,14 @@
+.nav {
+    background-color: var(--color-secondary);
+    height: 75px;
+    max-height: 75px;
+}
+
+.navbtnlist {
+    list-style-type: none;
+    gap: 50px;
+}
+
+.logout {
+    margin-right: 25px;
+}
