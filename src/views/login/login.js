@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
+import { LoginForm } from "../../components/layout/loginForm/loginForm";
+import styles from "./login.module.css"
 
 export function Login() {
 
     return (
-        <Link to="/home">
-            <button class="btn btn-danger" >
-                LOGIN
-            </button>
-        </Link>
+        <div className={`d-flex flex-row align-content-stretch justify-content-center ${styles["sefuMare"]}`}>
+            <div className="d-flex flex-column justify-content-center align-items-center">
+                <LoginForm />
+            </div>
+        </div>
     );
 }
