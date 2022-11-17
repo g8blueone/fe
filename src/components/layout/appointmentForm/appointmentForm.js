@@ -21,7 +21,7 @@ export function AppointmentForm() {
                 Make an appointment
             </h2>
             <div className={`d-flex flex-column mt-5`}>
-                <div class="form-group">
+                <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
                         Patient CNP
                     </label>
@@ -30,7 +30,7 @@ export function AppointmentForm() {
                         hint={"1234567890123"}
                     />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
                         Appointment Date
                     </label>
@@ -48,13 +48,14 @@ export function AppointmentForm() {
                         />
                     </div>
                 </div>
-                <div class="form-group d-flex flex-column">
+                <div className="form-group d-flex flex-column">
                     <label className={`${styles["eticheta"]}`}>
                         Appointment Time
                     </label>
                     <Select
                         label="08:00"
-                        displayEmpty
+                        displayEmpty={true}
+                        renderValue={value => value?.length ? Array.isArray(value) ? value.join(', ') : value : '08:00'}
                         sx={{
                             backgroundColor: '#ffffff',
                             border: '1px solid #dfe3e7',
@@ -73,9 +74,11 @@ export function AppointmentForm() {
                         <MenuItem value={40}>11:00</MenuItem>
                         <MenuItem value={50}>12:00</MenuItem>
                         <MenuItem value={60}>13:00</MenuItem>
+                        <MenuItem value={70}>14:00</MenuItem>
+                        <MenuItem value={80}>15:00</MenuItem>
                     </Select>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
                         Appointment Type
                     </label>
