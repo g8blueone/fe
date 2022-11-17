@@ -12,6 +12,7 @@
     -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
 .formInput:focus {
     color: #475F7B;
     background-color: #FFF;
