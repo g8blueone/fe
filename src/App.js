@@ -5,17 +5,19 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from './views/home/home';
 import { Doctors } from './views/doctors/doctors';
 import { Appointments } from './views/appointments/appointments';
+import { CreateAppointment } from './views/appointments/createAppointment';
 
 function App() {
   return (
-  <BrowserRouter>
+    <BrowserRouter>
       <Routes>
-        <Route path="/home" element={<Home />}/>
-        <Route path="/login" element={<Login />}/>
-        <Route path="/doctors" element={<Doctors />}/>
-        <Route path="/appointments" element={<Appointments />}/>
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/doctors" element={<Doctors />} />
+        <Route path="/appointments" element={<Appointments />} />
+        <Route path="/appointments/create" element={<CreateAppointment />} />
       </Routes>
-  </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

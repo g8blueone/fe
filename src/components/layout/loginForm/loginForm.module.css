@@ -1,11 +1,7 @@
-.loginWrapper{
+.loginWrapper {
     height: 500px;
     width: 400px;
     box-shadow: 0px 8px 15px var(--color-gray);
     border-radius: 50px;
-    background-color: var(--color-bg);
-}
-
-.formInputs{
-    gap: 15px;
+    background-color: #ffffff;
 }
