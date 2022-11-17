@@ -5,3 +5,7 @@
     border-radius: 50px;
     background-color: #ffffff;
 }
+
+.formInputs{
+    gap: 15px;
+}

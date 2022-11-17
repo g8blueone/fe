@@ -6,7 +6,8 @@ import edit from "../../../assets/svg/pen-to-square-regular.svg"
 import del from "../../../assets/svg/ban-solid.svg"
 import plus from "../../../assets/svg/plus-solid.svg"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 
 function CustomTablePagination(props) {
     const { count, page, rowsPerPage, onPageChange } = props;
@@ -62,30 +63,51 @@ function CustomTablePagination(props) {
 }
 
 
-export function AppointmentTable({data}) {
-    const [page, setPage] = useState(0);
-    
+export function AppointmentTable() {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
       };
 
+    const [page, setPage] = useState(0);
+    const [apps, setApps] = useState([]);
+
+    useEffect(() => {
+        getAppointments();
+    }, []);
+    
+    const getAppointments = () => {
+        fetch('http://localhost:5000/appointments')
+            .then(response => response.json())
+            .then(data => setApps(data));
+    }
+
+    const deleteAppointment = (id_appointment) => {
+        const requestOptions = {
+            method: 'DELETE',
+        };
+
+        fetch(`http://localhost:5000/appointments/${id_appointment}`, requestOptions)
+        getAppointments();
+    }
+
     return (
         <div>
             <div className="d-flex flex-row-reverse">
-                <Button
-                    className={`${styles["rowBtn"]} mb-2`}
-                    sx={{
-                        backgroundColor: '#2785FF',
-                        boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
-                        width: '50px',
-                        minWidth: '30px',
-                        height: '30px',
-                        minHeight: '30px'
-                    }}
-                    // onClick={hello}
-                >
-                    <img src={plus} alt="add" className={`h-100 ${styles["buttonImg"]}`}></img>
-                </Button>
+                <Link to="/appointments/create">
+                    <Button
+                        className={`${styles["rowBtn"]} mb-2`}
+                        sx={{
+                            backgroundColor: '#2785FF',
+                            boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
+                            width: '50px',
+                            minWidth: '30px',
+                            height: '30px',
+                            minHeight: '30px'
+                        }}
+                    >
+                        <img src={plus} alt="add" className={`h-100 ${styles["buttonImg"]}`}></img>
+                    </Button>
+                </Link>
             </div>
             <TableContainer component={Paper} >
                 <Table sx={{ minWidth: 1200 }} aria-label="simple table">
@@ -98,9 +120,11 @@ export function AppointmentTable({data}) {
                             }
                         }}>
                             <TableCell>Type</TableCell> 
+                            <TableCell>Date</TableCell>
                             <TableCell>Time</TableCell>
                             <TableCell>Location</TableCell>
                             <TableCell>Doctor</TableCell>
+                            <TableCell>Patient</TableCell>
                             <TableCell
                             sx={{
                                 width: "100px",
@@ -108,17 +132,19 @@ export function AppointmentTable({data}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((row) => (
+                        {apps.map((app) => (
                             <TableRow
-                                key={row.type}
+                                key={app.type}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.type}
+                                    {app.type}
                                 </TableCell>
-                                <TableCell>{row.time}</TableCell>
-                                <TableCell>{row.location}</TableCell>
-                                <TableCell>{row.doctor}</TableCell>
+                                <TableCell>{app.date}</TableCell>
+                                <TableCell>{app.time.substring(0,5)}</TableCell>
+                                <TableCell>{app.location}</TableCell>
+                                <TableCell>{app.doctor_name}</TableCell>
+                                <TableCell>{app.patient_name}</TableCell>
                                 <TableCell
                                 sx={{
                                     width: "100px",
@@ -150,7 +176,7 @@ export function AppointmentTable({data}) {
                                         height: '30px',
                                         minHeight: '30px'
                                     }}
-                                    // onClick={hello}
+                                    onClick={() => deleteAppointment(app.id_appointment)}
                                 >
                                     <img src={del} alt="delete" className={`h-100 ${styles["buttonImg"]}`}></img>
                                 </Button>
