@@ -1,0 +1,16 @@
+#tableHead {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.buttonImg{
+    width: 50px;
+}
+
+.rowBtn:hover{
+    background-color: var(--color-secondary) !important;
+}
+
+.paginationBtnGroup{
+    gap: 10px
+} 
