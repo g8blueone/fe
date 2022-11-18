@@ -122,7 +122,6 @@ export function AppointmentTable() {
                             <TableCell>Type</TableCell> 
                             <TableCell>Date</TableCell>
                             <TableCell>Time</TableCell>
-                            <TableCell>Location</TableCell>
                             <TableCell>Doctor</TableCell>
                             <TableCell>Patient</TableCell>
                             <TableCell
@@ -134,7 +133,7 @@ export function AppointmentTable() {
                     <TableBody>
                         {apps.map((app) => (
                             <TableRow
-                                key={app.type}
+                                key={app.id_appointment}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
@@ -142,7 +141,6 @@ export function AppointmentTable() {
                                 </TableCell>
                                 <TableCell>{app.date}</TableCell>
                                 <TableCell>{app.time.substring(0,5)}</TableCell>
-                                <TableCell>{app.location}</TableCell>
                                 <TableCell>{app.doctor_name}</TableCell>
                                 <TableCell>{app.patient_name}</TableCell>
                                 <TableCell
