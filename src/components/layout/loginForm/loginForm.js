@@ -13,7 +13,7 @@ export function LoginForm() {
             </div>
             <div className="d-flex flex-row justify-content-center mt-5">
                 <Link to="/home">
-                    <CustomButton title={"Login"} type={"buttonPrimary"} />
+                    <CustomButton title={"Login"} styleClass={"buttonPrimary"} />
                 </Link>
             </div>
         </form>
