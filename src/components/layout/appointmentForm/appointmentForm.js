@@ -25,7 +25,10 @@ const createAppointment = async (appointmentPatient, appointmentDoctor, appointm
             .catch((error) => {
                 console.log(error);
                 resolve(false);
-            });
+            })
+            .then(() => {
+                window.location.href = '/appointments';
+            })
     });
     const result = await status;
     return result;
