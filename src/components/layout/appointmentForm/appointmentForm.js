@@ -9,16 +9,15 @@ import { CustomButton } from "../../basic/btn/btn";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./appointmentForm.module.css";
-
 const APPOINTMENTS_API = "http://localhost:5000/appointments";
 
-const createAppointment = async (appointmentPatient, appointmentLocation, appointmentDate, appointmentTime, appointmentType) => {
+const createAppointment = async (appointmentPatient, appointmentDoctor, appointmentDate, appointmentTime, appointmentType) => {
     const dateFormat = "YYYY-MM-DD";
     const status = new Promise((resolve) => {
         axios
             .post(APPOINTMENTS_API, {
                 patient_name: appointmentPatient,
-                doctor_name: appointmentLocation,
+                doctor_name: "Dr Blue",
                 date: moment(appointmentDate).format(dateFormat),
                 time: appointmentTime,
                 type: appointmentType
@@ -34,20 +33,20 @@ const createAppointment = async (appointmentPatient, appointmentLocation, appoin
 
 export function AppointmentForm() {
     const [appointmentPatient, setAppointmentPatient] = useState("");
-    const [appointmentLocation, setAppointmentLocation] = useState("");
+    const [appointmentDoctor, setAppointmentDoctor] = useState("");
     const [appointmentDate, setAppointmentDate] = useState(new Date());
     const [appointmentTime, setAppointmentTime] = useState("08:00");
     const [appointmentType, setAppointmentType] = useState("Consultation");
-    const dateFormat = "YYYY-MM-DD";
+
 
     const patientNameHandler = (e) => {
+        console.log(e);
         setAppointmentPatient(e.target.value);
     }
 
     const submitHandler = async (e) => {
         e.preventDefault();        
-        const response = await createAppointment(appointmentPatient, appointmentLocation, appointmentDate, appointmentTime, appointmentType);
-        window.location.href = "/appointments";
+        const response = await createAppointment(appointmentPatient, appointmentDoctor, appointmentDate, appointmentTime, appointmentType);
     }
 
     return (
@@ -61,15 +60,15 @@ export function AppointmentForm() {
             <div className={`d-flex flex-column ${styles["elemsGap"]} mt-5`}>
                 <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
-                        Patient CNP
+                        Patient Name
                     </label>
                     <CustomInput
                         type={"text"}
                         hint={"Please enter..."}
-                        onChange={patientNameHandler}
+                        onChangeHandler={patientNameHandler}
                     />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
                         Location
                     </label>
@@ -78,11 +77,11 @@ export function AppointmentForm() {
                         hint={"Please enter..."}
                         onChange={
                             (event) => {
-                                setAppointmentLocation(event.target.value)
+                                setAppointmentDoctor(event.target.value)
                             }
                         }
                     />
-                </div>
+                </div> */}
                 <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
                         Date

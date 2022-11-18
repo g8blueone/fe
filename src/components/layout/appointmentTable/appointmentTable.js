@@ -86,8 +86,9 @@ export function AppointmentTable() {
             method: 'DELETE',
         };
 
-        fetch(`http://localhost:5000/appointments/${id_appointment}`, requestOptions)
-        getAppointments();
+        fetch(`http://localhost:5000/appointments/${id_appointment}`, requestOptions).then( () => {
+            getAppointments();
+        });
     }
 
     return (
