@@ -1,6 +1,5 @@
 import styles from "./appointments.module.css"
 import { NavBar } from "../../components/layout/navigation/navbar";
-import { createAppointment } from "../../models/appointment";
 import { AppointmentTable } from "../../components/layout/appointmentTable/appointmentTable";
 
 export function Appointments() {
