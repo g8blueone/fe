@@ -17,6 +17,7 @@ const updateAppointment = async (appointmentId, appointmentPatient, appointmentD
             .put(`http://localhost:5000/appointments/${appointmentId}`, {
                 patient_name: appointmentPatient,
                 date: moment(appointmentDate).format(dateFormat),
+                doctor_name: "Vasile",
                 time: appointmentTime.slice(0, 5),
                 type: appointmentType
             })
@@ -93,7 +94,7 @@ export const AppointmentEditForm = ({ appointment, getA }) => {
                             }
                         }
                         displayEmpty={true}
-                        value={appointmentTime}
+                        value={appointmentTime.slice(0, 2) + ":00:00"}
                         sx={{
                             backgroundColor: '#ffffff',
                             border: '1px solid #dfe3e7',
@@ -114,6 +115,14 @@ export const AppointmentEditForm = ({ appointment, getA }) => {
                         <MenuItem value={"13:00:00"}>13:00</MenuItem>
                         <MenuItem value={"14:00:00"}>14:00</MenuItem>
                         <MenuItem value={"15:00:00"}>15:00</MenuItem>
+                        <MenuItem value={"16:00:00"}>16:00</MenuItem>
+                        <MenuItem value={"17:00:00"}>17:00</MenuItem>
+                        <MenuItem value={"18:00:00"}>18:00</MenuItem>
+                        <MenuItem value={"19:00:00"}>19:00</MenuItem>
+                        <MenuItem value={"20:00:00"}>20:00</MenuItem>
+                        <MenuItem value={"21:00:00"}>21:00</MenuItem>
+                        <MenuItem value={"22:00:00"}>22:00</MenuItem>
+
                     </Select>
                 </div>
                 <div className="form-group d-flex flex-column">
@@ -144,6 +153,7 @@ export const AppointmentEditForm = ({ appointment, getA }) => {
                         <MenuItem value={"Regular Control"}>Regular Control</MenuItem>
                         <MenuItem value={"Surgery"}>Surgery</MenuItem>
                         <MenuItem value={"Test"}>Test</MenuItem>
+                        <MenuItem value={"Cardio"}>Cardio</MenuItem>
                     </Select>
                 </div>
             </div>
