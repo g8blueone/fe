@@ -29,10 +29,8 @@ export const AppointmentTableRow = ({ app, getA }) => {
     
     const showHandler = () => {
         setShow(true);
-        console.log(show);
     }
     const closeHandler = () => {
-        console.log(show);
         setShow(false);
     }
 

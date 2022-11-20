@@ -145,8 +145,8 @@ export function AppointmentTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {apps.map((app) => (
-                            <AppointmentTableRow app={app} getA={getAppointments}/>
+                        {apps?.map((app) => (
+                            <AppointmentTableRow key={app.id_appointment} app={app} getA={getAppointments}/>
                         ))}
                     </TableBody>
                 </Table>

@@ -24,7 +24,7 @@ const updateAppointment = async (appointmentId, appointmentPatient, appointmentD
                 console.log(error);
                 resolve(false);
             })
-            .then((response) => {
+            .then(() => {
                 getA();
             })
     });
