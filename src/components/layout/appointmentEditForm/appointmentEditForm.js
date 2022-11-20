@@ -8,18 +8,17 @@ import { CustomInput } from "../../basic/input/input";
 import { CustomButton } from "../../basic/btn/btn";
 
 import "react-datepicker/dist/react-datepicker.css";
-import styles from "./appointmentForm.module.css";
+import styles from './appointmentEditForm.module.css';
 
-const createAppointment = async (appointmentPatient, appointmentDoctor, appointmentDate, appointmentTime, appointmentType) => {
-    const APPOINTMENTS_API = "http://localhost:5000/appointments";
+const updateAppointment = async (appointmentId, appointmentPatient, appointmentDate, appointmentTime, appointmentType, getA) => {
     const dateFormat = "YYYY-MM-DD";
     const status = new Promise((resolve) => {
         axios
-            .post(APPOINTMENTS_API, {
+            .put(`http://localhost:5000/appointments/${appointmentId}`, {
                 patient_name: appointmentPatient,
-                doctor_name: "Dr Blue",
                 date: moment(appointmentDate).format(dateFormat),
-                time: appointmentTime,
+                doctor_name: "Vasile",
+                time: appointmentTime.slice(0, 5),
                 type: appointmentType
             })
             .catch((error) => {
@@ -27,20 +26,20 @@ const createAppointment = async (appointmentPatient, appointmentDoctor, appointm
                 resolve(false);
             })
             .then(() => {
-                window.location.href = '/appointments';
+                getA();
             })
     });
     const result = await status;
     return result;
 };
 
-export function AppointmentForm() {
-    const [appointmentPatient, setAppointmentPatient] = useState("");
-    const [appointmentDoctor, setAppointmentDoctor] = useState("");
-    const [appointmentDate, setAppointmentDate] = useState(new Date());
-    const [appointmentTime, setAppointmentTime] = useState("08:00");
-    const [appointmentType, setAppointmentType] = useState("Consultation");
 
+export const AppointmentEditForm = ({ appointment, getA }) => {
+    const { id_appointment, patient_name, date, time, type } = appointment;
+    const [appointmentPatient, setAppointmentPatient] = useState(patient_name);
+    const [appointmentDate, setAppointmentDate] = useState(new Date(date));
+    const [appointmentTime, setAppointmentTime] = useState(time);
+    const [appointmentType, setAppointmentType] = useState(type);
 
     const patientNameHandler = (e) => {
         setAppointmentPatient(e.target.value);
@@ -48,7 +47,7 @@ export function AppointmentForm() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        const response = await createAppointment(appointmentPatient, appointmentDoctor, appointmentDate, appointmentTime, appointmentType);
+        const response = await updateAppointment(id_appointment, appointmentPatient, appointmentDate, appointmentTime, appointmentType, getA);
     }
 
     return (
@@ -56,9 +55,6 @@ export function AppointmentForm() {
             className={`${styles["appointmentWrapper"]} d-flex flex-column justify-content-center`}
             onSubmit={submitHandler}
         >
-            <h2 className={`${styles["rubrica2"]}`}>
-                Make an appointment
-            </h2>
             <div className={`d-flex flex-column ${styles["elemsGap"]} mt-5`}>
                 <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
@@ -66,24 +62,10 @@ export function AppointmentForm() {
                     </label>
                     <CustomInput
                         type={"text"}
-                        hint={"Please enter..."}
+                        value={appointmentPatient}
                         onChangeHandler={patientNameHandler}
                     />
                 </div>
-                {/* <div className="form-group">
-                    <label className={`${styles["eticheta"]}`}>
-                        Location
-                    </label>
-                    <CustomInput
-                        type={"text"}
-                        hint={"Please enter..."}
-                        onChange={
-                            (event) => {
-                                setAppointmentDoctor(event.target.value)
-                            }
-                        }
-                    />
-                </div> */}
                 <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
                         Date
@@ -93,9 +75,8 @@ export function AppointmentForm() {
                             dateFormat="yyyy-MM-dd"
                             selected={appointmentDate}
                             onChange={
-                                (date) => {
-                                    setAppointmentDate(date);
-                                    console.log(date);
+                                (newDate) => {
+                                    setAppointmentDate(newDate);
                                 }
                             }
                             minDate={moment().toDate()}
@@ -112,9 +93,8 @@ export function AppointmentForm() {
                                 setAppointmentTime(event.target.value)
                             }
                         }
-                        label="08:00"
                         displayEmpty={true}
-                        value={appointmentTime}
+                        value={appointmentTime.slice(0, 2) + ":00:00"}
                         sx={{
                             backgroundColor: '#ffffff',
                             border: '1px solid #dfe3e7',
@@ -127,21 +107,22 @@ export function AppointmentForm() {
                             borderRadius: '.267rem',
                         }}
                     >
-                        <MenuItem value={"08:00"}>08:00</MenuItem>
-                        <MenuItem value={"09:00"}>09:00</MenuItem>
-                        <MenuItem value={"10:00"}>10:00</MenuItem>
-                        <MenuItem value={"11:00"}>11:00</MenuItem>
-                        <MenuItem value={"12:00"}>12:00</MenuItem>
-                        <MenuItem value={"13:00"}>13:00</MenuItem>
-                        <MenuItem value={"14:00"}>14:00</MenuItem>
-                        <MenuItem value={"15:00"}>15:00</MenuItem>
-                        <MenuItem value={"16:00"}>16:00</MenuItem>
-                        <MenuItem value={"17:00"}>17:00</MenuItem>
-                        <MenuItem value={"18:00"}>18:00</MenuItem>
-                        <MenuItem value={"19:00"}>19:00</MenuItem>
-                        <MenuItem value={"20:00"}>20:00</MenuItem>
-                        <MenuItem value={"21:00"}>21:00</MenuItem>
-                        <MenuItem value={"22:00"}>22:00</MenuItem>
+                        <MenuItem value={"08:00:00"}>08:00</MenuItem>
+                        <MenuItem value={"09:00:00"}>09:00</MenuItem>
+                        <MenuItem value={"10:00:00"}>10:00</MenuItem>
+                        <MenuItem value={"11:00:00"}>11:00</MenuItem>
+                        <MenuItem value={"12:00:00"}>12:00</MenuItem>
+                        <MenuItem value={"13:00:00"}>13:00</MenuItem>
+                        <MenuItem value={"14:00:00"}>14:00</MenuItem>
+                        <MenuItem value={"15:00:00"}>15:00</MenuItem>
+                        <MenuItem value={"16:00:00"}>16:00</MenuItem>
+                        <MenuItem value={"17:00:00"}>17:00</MenuItem>
+                        <MenuItem value={"18:00:00"}>18:00</MenuItem>
+                        <MenuItem value={"19:00:00"}>19:00</MenuItem>
+                        <MenuItem value={"20:00:00"}>20:00</MenuItem>
+                        <MenuItem value={"21:00:00"}>21:00</MenuItem>
+                        <MenuItem value={"22:00:00"}>22:00</MenuItem>
+
                     </Select>
                 </div>
                 <div className="form-group d-flex flex-column">
@@ -154,7 +135,6 @@ export function AppointmentForm() {
                                 setAppointmentType(event.target.value)
                             }
                         }
-                        label="Consultations"
                         displayEmpty={true}
                         value={appointmentType}
                         sx={{
@@ -173,18 +153,18 @@ export function AppointmentForm() {
                         <MenuItem value={"Regular Control"}>Regular Control</MenuItem>
                         <MenuItem value={"Surgery"}>Surgery</MenuItem>
                         <MenuItem value={"Test"}>Test</MenuItem>
+                        <MenuItem value={"Cardio"}>Cardio</MenuItem>
                     </Select>
                 </div>
             </div>
 
             <div className={`${styles["elemsGap"]} d-flex flex-row justify-content-end mt-5`}>
-
                 <CustomButton
-                    title={"Create"}
+                    title={"Edit"}
                     styleClass={"buttonPrimary"}
                     type="submit"
                 />
             </div>
         </form >
-    );
-} 
+    )
+}
