@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/svg/infinity-solid.svg"
 import logout from "../../../assets/svg/right-from-bracket-solid.svg"
 import styles from "./navbar.module.css"
@@ -15,7 +15,7 @@ export function NavBar() {
                 <img src={logo} alt="logo" className="h-100"></img>
             </div>
             <ul className={`${styles["navbtnlist"]} d-flex flex-row h-100 col-10 justify-content-center`}>
-                <Link
+                <NavLink
                     style={{ textDecoration: 'none', color: '#ffffff' }}
                     onClick={() =>
                         setSelected("home")
@@ -25,7 +25,7 @@ export function NavBar() {
                     <li className="h-100 d-flex flex-row justify-content-center align-items-center">
                         <h3>Home</h3>
                     </li>
-                </Link>
+                </NavLink>
                 <Link
                     style={{ textDecoration: 'none', color: '#ffffff' }}
                     onClick={() =>
