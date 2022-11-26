@@ -1,11 +1,17 @@
 .loginWrapper {
-    height: 500px;
-    width: 400px;
+    height: 600px;
+    width: 500px;
     box-shadow: 0px 8px 15px var(--color-gray);
     border-radius: 50px;
     background-color: #ffffff;
+    z-index: 1;
 }
 
-.formInputs{
-    gap: 15px;
+.rubrica2 {
+    font-weight: 600;
+    margin-bottom: 60px;
+}
+
+.formInputs {
+    gap: 25px;
 }

@@ -135,6 +135,13 @@ export function AppointmentForm() {
                         <MenuItem value={"13:00"}>13:00</MenuItem>
                         <MenuItem value={"14:00"}>14:00</MenuItem>
                         <MenuItem value={"15:00"}>15:00</MenuItem>
+                        <MenuItem value={"16:00"}>16:00</MenuItem>
+                        <MenuItem value={"17:00"}>17:00</MenuItem>
+                        <MenuItem value={"18:00"}>18:00</MenuItem>
+                        <MenuItem value={"19:00"}>19:00</MenuItem>
+                        <MenuItem value={"20:00"}>20:00</MenuItem>
+                        <MenuItem value={"21:00"}>21:00</MenuItem>
+                        <MenuItem value={"22:00"}>22:00</MenuItem>
                     </Select>
                 </div>
                 <div className="form-group d-flex flex-column">
