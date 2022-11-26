@@ -36,9 +36,9 @@ export function NavBar() {
                                         isActive ? styles["navBtn"] : ""
                                     }
                                 >
-                                    <h3 className={`${styles["navbtnlist"]} m-0`}>
+                                    <h5 className={`${styles["navbtnlist"]} m-0`}>
                                         {navElem.title}
-                                    </h3>
+                                    </h5>
                                 </NavLink>
                             </li>
                         )
