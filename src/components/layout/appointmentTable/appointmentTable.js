@@ -196,10 +196,6 @@ export function AppointmentTable() {
                         orderDirection={orderDirection}
                         handleRequestSort={handleRequestSort}
                         />
-                        {/*<TableCell*/}
-                        {/*    sx={{*/}
-                        {/*        width: "100px",*/}
-                        {/*    }}></TableCell>*/}
                         {
                             sortedRowInformation(rowInformation, getComparator(orderDirection, valueToOrderBy))
                                 .map((appointment, index) => (
@@ -224,7 +220,7 @@ export function AppointmentTable() {
                                         </TableCell>
                                         <TableCell
                                             sx={{
-                                                width: "100px",
+                                                width: "10px",
                                                 display: "flex",
                                                 gap: "10px",
                                                 justifyContent: "right"
