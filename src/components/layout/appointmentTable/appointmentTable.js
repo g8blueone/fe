@@ -19,16 +19,16 @@ import { AppointmentTableRow } from "./appointmentTableRow";
 
 import styles from "./appointmentTable.module.css";
 
-function CustomTablePagination(props) {
-    const { count, page, totalPages, rowsPerPage, onPageChange } = props;
+function CustomTablePagination({page, totalPages, onPageChange}) {
 
 
     const handleBackButtonClick = (event) => {
-        onPageChange(event, page - 1);
+        console.log(event)
+        onPageChange(page - 1);
     };
 
     const handleNextButtonClick = (event) => {
-        onPageChange(event, page + 1);
+        onPageChange(page + 1);
     };
 
 
@@ -46,7 +46,8 @@ function CustomTablePagination(props) {
                     minHeight: '30px'
                 }}
                 onClick={handleBackButtonClick}
-                disabled={page === 0}
+                disabled={page === 1}
+                classes={{ disabled: styles.disabledPagination }}
             >
                 <img src={pageLeft} alt="previous page" className={`h-100 ${styles["buttonImg"]}`}></img>
             </Button>
@@ -64,7 +65,8 @@ function CustomTablePagination(props) {
                     minHeight: '30px'
                 }}
                 onClick={handleNextButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                disabled={page === totalPages}
+                classes={{ disabled: styles.disabledPagination }}
             >
                 <img src={pageRight} alt="next page" className={`h-100 ${styles["buttonImg"]}`}></img>
             </Button>
@@ -76,26 +78,8 @@ function CustomTablePagination(props) {
 export function AppointmentTable() {
     const [inputValue, setInputValue] = useState('')
     const [timer, setTimer] = useState(null)
-
-    const inputChanged = e => {
-        setInputValue(e.target.value)
-
-        clearTimeout(timer)
-
-        const newTimer = setTimeout(() => {
-        console.log(inputValue)
-        }, 500)
-
-        setTimer(newTimer)
-    }
-    const [show, setShow] = useState(false);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const [page, setPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(3);
     const [apps, setApps] = useState([]);
 
 
@@ -109,15 +93,23 @@ export function AppointmentTable() {
             .then(data => setApps(data));
     }
 
-    // const deleteAppointment = (id_appointment) => {
-    //     const requestOptions = {
-    //         method: 'DELETE',
-    //     };
+    const inputChanged = e => {
+        setInputValue(e.target.value)
 
-    //     fetch(`http://localhost:5000/appointments/${id_appointment}`, requestOptions).then(() => {
-    //         getAppointments();
-    //     });
-    // }
+        clearTimeout(timer)
+
+        const newTimer = setTimeout(() => {
+        console.log(inputValue)
+        }, 500)
+
+        setTimer(newTimer)
+    }
+
+    const onPageChange = (newPage) => {
+        console.log(newPage)
+        setPage(newPage)
+        //setPage(newPage);
+    };
 
     return (
         <div>
@@ -177,7 +169,7 @@ export function AppointmentTable() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <CustomTablePagination />
+            <CustomTablePagination page={page} totalPages={totalPages} onPageChange={onPageChange}/>
         </div>
     );
 }
