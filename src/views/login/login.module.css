@@ -1,4 +1,23 @@
-.sefuMare{
+.background {
+    margin: 0;
+    padding: 0;
+}
+
+.background:before {
+    width: 100vw;
     height: 100vh;
-    background-color: var(--color-bg);
+    content: "";
+    position: fixed;
+    background-image: url(../../assets/images/medical.jpg);
+    background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	-webkit-filter: blur(8px);
+	-moz-filter: blur(8px);
+	filter: blur(8px);
+}
+
+.sefuMare {
+    height: 100vh;
 }

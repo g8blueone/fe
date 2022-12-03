@@ -52,7 +52,7 @@ export const AppointmentEditForm = ({ appointment, getA }) => {
 
     return (
         <form
-            className={`${styles["appointmentWrapper"]} d-flex flex-column justify-content-center`}
+            className={'d-flex flex-column justify-content-center'}
             onSubmit={submitHandler}
         >
             <div className={`d-flex flex-column ${styles["elemsGap"]} mt-5`}>
@@ -158,7 +158,7 @@ export const AppointmentEditForm = ({ appointment, getA }) => {
                 </div>
             </div>
 
-            <div className={`${styles["elemsGap"]} d-flex flex-row justify-content-end mt-5`}>
+            <div className={'d-flex flex-row justify-content-end mt-5'}>
                 <CustomButton
                     title={"Edit"}
                     styleClass={"buttonPrimary"}

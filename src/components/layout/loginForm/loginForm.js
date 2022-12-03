@@ -7,6 +7,9 @@ import styles from "./loginForm.module.css"
 export function LoginForm() {
     return (
         <form className={`${styles["loginWrapper"]} d-flex flex-column justify-content-center p-5`}>
+            <h2 className={`${styles["rubrica2"]} d-flex flex-row justify-content-center`}>
+                Login
+            </h2>
             <div className={`d-flex flex-column ${styles["formInputs"]}`}>
                 <CustomInput type={"text"} hint={"Username"} />
                 <CustomInput type={"password"} hint={"Password"}/>
