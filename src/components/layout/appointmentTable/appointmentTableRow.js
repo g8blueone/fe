@@ -162,7 +162,7 @@ export const AppointmentTableRow = ({ app, getA }) => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        Add Prescription
+                        Prescription
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
