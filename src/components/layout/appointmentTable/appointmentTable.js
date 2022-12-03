@@ -1,22 +1,6 @@
-import styles from "./appointmentTable.module.css"
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Box, IconButton, TableFooter, TablePagination, TableSortLabel, Button } from "@mui/material";
-import pageRight from "../../../assets/svg/arrow-right-solid.svg"
-import pageLeft from "../../../assets/svg/arrow-left-solid.svg"
-import edit from "../../../assets/svg/pen-to-square-regular.svg"
-import del from "../../../assets/svg/ban-solid.svg"
-import plus from "../../../assets/svg/plus-solid.svg"
-import TableHeader from "./appointmentTableHeader.js"
-
-import { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
-import search from "../../../assets/svg/magnifying-glass-solid.svg"
-
 import {
-    TableContainer,
     Table,
-    TableHead,
-    TableRow,
-    TableCell,
+    TableContainer,
     TableBody,
     Paper,
     Button,
@@ -24,9 +8,14 @@ import {
 import pageRight from "../../../assets/svg/arrow-right-solid.svg";
 import pageLeft from "../../../assets/svg/arrow-left-solid.svg";
 import plus from "../../../assets/svg/plus-solid.svg";
+import search from "../../../assets/svg/magnifying-glass-solid.svg";
+
 import { AppointmentTableRow } from "./appointmentTableRow";
+import  TableHeader  from "./appointmentTableHeader";
 
 import styles from "./appointmentTable.module.css";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function CustomTablePagination({page, totalPages, onPageChange}) {
 
@@ -114,6 +103,8 @@ export function AppointmentTable() {
     const [timer, setTimer] = useState(null)
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(3);
+    const [apps, setApps] = useState([]);
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -122,6 +113,7 @@ export function AppointmentTable() {
         const isAscending = (valueToOrderBy === property && orderDirection === 'asc')
         setValueToOrderBy(property)
         setOrderDirection(isAscending ? 'desc' : 'asc');
+        console.log(isAscending + "  " + property)
     };
 
     // const createSortHandler = (property) => (event) => {
@@ -196,82 +188,10 @@ export function AppointmentTable() {
                         orderDirection={orderDirection}
                         handleRequestSort={handleRequestSort}
                         />
-                        {
-                            sortedRowInformation(rowInformation, getComparator(orderDirection, valueToOrderBy))
-                                .map((appointment, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>
-                                            {appointment.type}
-                                        </TableCell>
-                                        <TableCell>
-                                            {appointment.date}
-                                        </TableCell>
-                                        <TableCell>
-                                            {appointment.time}
-                                        </TableCell>
-                                        <TableCell>
-                                            {appointment.location}
-                                        </TableCell>
-                                        <TableCell>
-                                            {appointment.doctor}
-                                        </TableCell>
-                                        <TableCell>
-                                            {appointment.patient}
-                                        </TableCell>
-                                        <TableCell
-                                            sx={{
-                                                width: "10px",
-                                                display: "flex",
-                                                gap: "10px",
-                                                justifyContent: "right"
-                                            }}>
-                                            <Button
-                                                className={`${styles["rowBtn"]}`}
-                                                sx={{
-                                                    backgroundColor: '#2785FF',
-                                                    boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
-                                                    width: '30px',
-                                                    minWidth: '30px',
-                                                    height: '30px',
-                                                    minHeight: '30px'
-                                                }}
-                                                // onClick={hello}
-                                            >
-                                                <img src={edit} alt="edit" className={`h-100 ${styles["buttonImg"]}`}></img>
-                                            </Button>
-                                            <Button
-                                                className={`${styles["rowBtn"]}`}
-                                                sx={{
-                                                    backgroundColor: '#2785FF',
-                                                    boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
-                                                    width: '30px',
-                                                    minWidth: '30px',
-                                                    height: '30px',
-                                                    minHeight: '30px'
-                                                }}
-                                                onClick={() => deleteAppointment(appointment.id_appointment)}
-                                            >
-                                                <img src={del} alt="delete" className={`h-100 ${styles["buttonImg"]}`}></img>
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                        }
+ 
                     <TableBody>
-                        {apps.map((app) => (
-                            <TableRow
-                                key={app.type}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {app.type}
-                                </TableCell>
-                                <TableCell>{app.date}</TableCell>
-                                <TableCell>{app.time.substring(0,5)}</TableCell>
-                                <TableCell>{app.location}</TableCell>
-                                <TableCell>{app.doctor_name}</TableCell>
-                                <TableCell>{app.patient_name}</TableCell>
-                            </TableRow>
+                        {apps?.map((app) => (
+                            <AppointmentTableRow key={app.id_appointment} app={app} getA={getAppointments}/>
                         ))}
                     </TableBody>
                 </Table>

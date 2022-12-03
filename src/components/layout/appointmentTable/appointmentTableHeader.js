@@ -76,7 +76,10 @@ export default function TableHeader(propsSorting) {
                     </TableSortLabel>
                 </TableCell>
 
-                <TableCell>
+                <TableCell
+                sx={{
+                    width: "100px"
+                }}>
                 </TableCell>
             </TableRow>
         </TableHead>
