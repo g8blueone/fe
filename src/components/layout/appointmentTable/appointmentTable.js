@@ -19,13 +19,11 @@ import { Link } from "react-router-dom";
 
 function CustomTablePagination({page, totalPages, onPageChange}) {
 
-
     const handleBackButtonClick = (event) => {
-        console.log(event)
         onPageChange(page - 1);
     };
 
-    const handleNextButtonClick = (event) => {
+    const handleNextButtonClick = () => {
         onPageChange(page + 1);
     };
 
@@ -72,84 +70,50 @@ function CustomTablePagination({page, totalPages, onPageChange}) {
     );
 }
 
-function descendingComparator(a, b, orderBy) {
-    if(b[orderBy] < a[orderBy]){
-        return -1
-    }
-    if(b[orderBy] > a[orderBy]){
-        return 1
-    }
-    return 0
-}
-
-function getComparator(order, orderBy) {
-    return order === "desc"
-        ? (a,b) => descendingComparator(a, b, orderBy)
-        : (a,b) => -descendingComparator(a, b, orderBy)
-}
-
-const sortedRowInformation = (rowArray, comparator) => {
-    const stabilizedRowArray = rowArray.map((el, index) => [el, index])
-    stabilizedRowArray.sort((a,b) => {
-        const order = comparator(a[0], b[0])
-        if(order !== 0) return order
-        return a[1] - b[1]
-    })
-    return stabilizedRowArray.map((el) => el[0])
-}
-
 export function AppointmentTable() {
-    const [inputValue, setInputValue] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
     const [timer, setTimer] = useState(null)
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(3);
     const [apps, setApps] = useState([]);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+    const [orderDirection, setOrderDirection] = useState('asc');
+    const [valueToOrderBy, setValueToOrderBy] = useState('type');
 
     const handleRequestSort = (event, property) => {
         const isAscending = (valueToOrderBy === property && orderDirection === 'asc')
         setValueToOrderBy(property)
-        setOrderDirection(isAscending ? 'desc' : 'asc');
-        console.log(isAscending + "  " + property)
+        setOrderDirection(isAscending ? 'desc' : 'asc')
+        setPage(1)
     };
-
-    // const createSortHandler = (property) => (event) => {
-    //     handleRequestSort(event, property)
-    // }
-
-    const [orderDirection, setOrderDirection] = useState('asc');
-    const [valueToOrderBy, setValueToOrderBy] = useState('type');
-
 
     useEffect(() => {
         getAppointments();
-    }, []);
+    }, [page, orderDirection, valueToOrderBy, searchTerm]);
+
 
     const getAppointments = () => {
-        fetch('http://localhost:5000/appointments')
+        fetch(`http://localhost:5000/appointments/` +
+        `?sortMode=${orderDirection.toUpperCase()}&sortField=${valueToOrderBy}Field&page=${page}&search=${searchTerm}`)
             .then(response => response.json())
-            .then(data => setApps(data));
+            .then(response => {
+                setTotalPages(response.meta.pages)
+                setApps(response.data);
+            });
     }
 
     const inputChanged = e => {
-        setInputValue(e.target.value)
-
         clearTimeout(timer)
 
         const newTimer = setTimeout(() => {
-        console.log(inputValue)
+            setPage(1)
+            setSearchTerm(e.target.value)
         }, 500)
 
         setTimer(newTimer)
     }
 
     const onPageChange = (newPage) => {
-        console.log(newPage)
         setPage(newPage)
-        //setPage(newPage);
     };
 
 
@@ -158,7 +122,7 @@ export function AppointmentTable() {
             <div className="d-flex">
                 <div className="d-flex col-6">
                     <div className={`${styles['search-box']} align-self-end`}>
-                        <input className={`${styles['search-text']}`} value={inputValue} type="text" onChange={inputChanged} placeholder="Search..."/>
+                        <input className={`${styles['search-text']}`} type="text" onChange={inputChanged} placeholder="Search..."/>
                         <img src={search} alt="search" className={`h-100 ${styles["buttonImg"]}`}></img>
                     </div>
                 </div>
