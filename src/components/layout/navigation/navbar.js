@@ -24,7 +24,7 @@ export function NavBar() {
     return (
         <nav className={`d-flex flex-row p-2 ${styles["nav"]}`}>
             <div className="col-1">
-                <img src={logo} alt="logo" className="h-100"></img>
+                <img src={logo} alt="logo" className="h-100 p-2"></img>
             </div>
             <ul className={`${styles["navbtnlist"]} d-flex flex-row h-100 col-10 justify-content-center`}>
                 {

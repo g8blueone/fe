@@ -1,33 +1,30 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
 import {
-    TableContainer,
     Table,
-    TableHead,
-    TableRow,
-    TableCell,
+    TableContainer,
     TableBody,
     Paper,
-    Button
+    Button,
 } from "@mui/material";
 import pageRight from "../../../assets/svg/arrow-right-solid.svg";
 import pageLeft from "../../../assets/svg/arrow-left-solid.svg";
 import plus from "../../../assets/svg/plus-solid.svg";
+import search from "../../../assets/svg/magnifying-glass-solid.svg";
+
 import { AppointmentTableRow } from "./appointmentTableRow";
+import  TableHeader  from "./appointmentTableHeader";
 
 import styles from "./appointmentTable.module.css";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-function CustomTablePagination(props) {
-    const { count, page, rowsPerPage, onPageChange } = props;
-
+function CustomTablePagination({page, totalPages, onPageChange}) {
 
     const handleBackButtonClick = (event) => {
-        onPageChange(event, page - 1);
+        onPageChange(page - 1);
     };
 
-    const handleNextButtonClick = (event) => {
-        onPageChange(event, page + 1);
+    const handleNextButtonClick = () => {
+        onPageChange(page + 1);
     };
 
 
@@ -45,12 +42,13 @@ function CustomTablePagination(props) {
                     minHeight: '30px'
                 }}
                 onClick={handleBackButtonClick}
-                disabled={page === 0}
+                disabled={page === 1}
+                classes={{ disabled: styles.disabledPagination }}
             >
                 <img src={pageLeft} alt="previous page" className={`h-100 ${styles["buttonImg"]}`}></img>
             </Button>
-            <div className="h-50 mt-3">
-                1 of 1
+            <div className={`${styles['pageNumberText']}`}>
+                {page} of {totalPages}
             </div>
             <Button
                 className="mt-3"
@@ -63,7 +61,8 @@ function CustomTablePagination(props) {
                     minHeight: '30px'
                 }}
                 onClick={handleNextButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                disabled={page === totalPages}
+                classes={{ disabled: styles.disabledPagination }}
             >
                 <img src={pageRight} alt="next page" className={`h-100 ${styles["buttonImg"]}`}></img>
             </Button>
@@ -71,79 +70,89 @@ function CustomTablePagination(props) {
     );
 }
 
-
 export function AppointmentTable() {
-    const [show, setShow] = useState(false);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const [page, setPage] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('')
+    const [timer, setTimer] = useState(null)
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(3);
     const [apps, setApps] = useState([]);
+    const [orderDirection, setOrderDirection] = useState('asc');
+    const [valueToOrderBy, setValueToOrderBy] = useState('type');
+
+    const handleRequestSort = (event, property) => {
+        const isAscending = (valueToOrderBy === property && orderDirection === 'asc')
+        setValueToOrderBy(property)
+        setOrderDirection(isAscending ? 'desc' : 'asc')
+        setPage(1)
+    };
 
     useEffect(() => {
         getAppointments();
-    }, []);
+    }, [page, orderDirection, valueToOrderBy, searchTerm]);
+
 
     const getAppointments = () => {
-        fetch('http://localhost:5000/appointments')
+        fetch(`http://localhost:5000/appointments/` +
+        `?sortMode=${orderDirection.toUpperCase()}&sortField=${valueToOrderBy}Field&page=${page}&search=${searchTerm}`)
             .then(response => response.json())
-            .then(data => setApps(data));
+            .then(response => {
+                setTotalPages(response.meta.pages)
+                setApps(response.data);
+            });
     }
 
-    // const deleteAppointment = (id_appointment) => {
-    //     const requestOptions = {
-    //         method: 'DELETE',
-    //     };
+    const inputChanged = e => {
+        clearTimeout(timer)
 
-    //     fetch(`http://localhost:5000/appointments/${id_appointment}`, requestOptions).then(() => {
-    //         getAppointments();
-    //     });
-    // }
+        const newTimer = setTimeout(() => {
+            setPage(1)
+            setSearchTerm(e.target.value)
+        }, 500)
+
+        setTimer(newTimer)
+    }
+
+    const onPageChange = (newPage) => {
+        setPage(newPage)
+    };
+
 
     return (
         <div>
-            <div className="d-flex flex-row-reverse">
-                <Link to="/appointments/create">
-                    <Button
-                        className={`${styles["rowBtn"]} mb-2`}
-                        sx={{
-                            backgroundColor: '#2785FF',
-                            boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
-                            width: '50px',
-                            minWidth: '30px',
-                            height: '30px',
-                            minHeight: '30px'
-                        }}
-                    >
-                        <img src={plus} alt="add" className={`h-100 ${styles["buttonImg"]}`}></img>
-                    </Button>
-                </Link>
+            <div className="d-flex">
+                <div className="d-flex col-6">
+                    <div className={`${styles['search-box']} align-self-end`}>
+                        <input className={`${styles['search-text']}`} type="text" onChange={inputChanged} placeholder="Search..."/>
+                        <img src={search} alt="search" className={`h-100 ${styles["buttonImg"]}`}></img>
+                    </div>
+                </div>
+                <div className="d-flex flex-row-reverse justify-content-between col-6">
+                    <Link to="/appointments/create">
+                        <Button
+                            className={`${styles["rowBtn"]} mb-2`}
+                            sx={{
+                                backgroundColor: '#2785FF',
+                                boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
+                                width: '50px',
+                                minWidth: '30px',
+                                height: '30px',
+                                minHeight: '30px'
+                            }}
+                        >
+                            <img src={plus} alt="add" className={`h-100 ${styles["buttonImg"]}`}></img>
+                        </Button>
+                    </Link>
+                </div>
             </div>
+            
             <TableContainer component={Paper} >
                 <Table sx={{ minWidth: 1200 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow
-                            sx={{
-                                '& .MuiTableCell-root': {
-                                    color: 'white',
-                                    backgroundColor: '#2785FF'
-                                }
-                            }}>
-                            <TableCell>Type</TableCell>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Time</TableCell>
-                            <TableCell>Doctor</TableCell>
-                            <TableCell>Patient</TableCell>
-                            <TableCell
-                                sx={{
-                                    width: "100px",
-                                }}>
-
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
+                    <TableHeader
+                        valueToOrderBy={valueToOrderBy}
+                        orderDirection={orderDirection}
+                        handleRequestSort={handleRequestSort}
+                        />
+ 
                     <TableBody>
                         {apps?.map((app) => (
                             <AppointmentTableRow key={app.id_appointment} app={app} getA={getAppointments}/>
@@ -151,7 +160,7 @@ export function AppointmentTable() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <CustomTablePagination />
+            <CustomTablePagination page={page} totalPages={totalPages} onPageChange={onPageChange}/>
         </div>
     );
 }

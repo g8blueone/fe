@@ -10,14 +10,15 @@ import { CustomButton } from "../../basic/btn/btn";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./appointmentForm.module.css";
 
-const createAppointment = async (appointmentPatient, appointmentDoctor, appointmentDate, appointmentTime, appointmentType) => {
-    const APPOINTMENTS_API = "http://localhost:5000/appointments";
+const createAppointment = async (appointmentPatient, location, appointmentDoctor, appointmentDate, appointmentTime, appointmentType) => {
+    const APPOINTMENTS_API = "http://localhost:5000/appointments/";
     const dateFormat = "YYYY-MM-DD";
     const status = new Promise((resolve) => {
         axios
             .post(APPOINTMENTS_API, {
                 patient_name: appointmentPatient,
                 doctor_name: "Dr Blue",
+                location: location,
                 date: moment(appointmentDate).format(dateFormat),
                 time: appointmentTime,
                 type: appointmentType
@@ -40,15 +41,20 @@ export function AppointmentForm() {
     const [appointmentDate, setAppointmentDate] = useState(new Date());
     const [appointmentTime, setAppointmentTime] = useState("08:00");
     const [appointmentType, setAppointmentType] = useState("Consultation");
+    const [location, setLocation] = useState("Location");
 
 
     const patientNameHandler = (e) => {
         setAppointmentPatient(e.target.value);
     }
 
+    const locationHandler = (e) => {
+        setLocation(e.target.value);
+    }
+
     const submitHandler = async (e) => {
         e.preventDefault();
-        const response = await createAppointment(appointmentPatient, appointmentDoctor, appointmentDate, appointmentTime, appointmentType);
+        const response = await createAppointment(appointmentPatient, location, appointmentDoctor, appointmentDate, appointmentTime, appointmentType);
     }
 
     return (
@@ -70,20 +76,16 @@ export function AppointmentForm() {
                         onChangeHandler={patientNameHandler}
                     />
                 </div>
-                {/* <div className="form-group">
+                <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
                         Location
                     </label>
                     <CustomInput
                         type={"text"}
                         hint={"Please enter..."}
-                        onChange={
-                            (event) => {
-                                setAppointmentDoctor(event.target.value)
-                            }
-                        }
+                        onChangeHandler={locationHandler}
                     />
-                </div> */}
+                </div>
                 <div className="form-group">
                     <label className={`${styles["eticheta"]}`}>
                         Date
@@ -92,10 +94,10 @@ export function AppointmentForm() {
                         <DateTimePicker
                             dateFormat="yyyy-MM-dd"
                             selected={appointmentDate}
+                            calendarStartDay={1}
                             onChange={
                                 (date) => {
                                     setAppointmentDate(date);
-                                    console.log(date);
                                 }
                             }
                             minDate={moment().toDate()}
@@ -142,6 +144,7 @@ export function AppointmentForm() {
                         <MenuItem value={"20:00"}>20:00</MenuItem>
                         <MenuItem value={"21:00"}>21:00</MenuItem>
                         <MenuItem value={"22:00"}>22:00</MenuItem>
+                        <MenuItem value={"23:00"}>23:00</MenuItem>
                     </Select>
                 </div>
                 <div className="form-group d-flex flex-column">

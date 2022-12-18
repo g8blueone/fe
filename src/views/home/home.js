@@ -6,10 +6,15 @@ import styles from "./home.module.css"
 export function Home() {
     return (
         <div className="d-flex flex-column">
-            <NavBar/>
+            <NavBar />
             <div className={`d-flex flex-column p-3 ${styles["wrapper"]}`}>
-                <UserProfile/>
-                <UpcomingAppointments/>
+                <UserProfile />
+                <div className={`d-flex flex-column ${styles["upcoming_appointments_box"]} p-4`}>
+                    <h1>Upcoming Appointments</h1>
+                    <div className={`d-flex flex-row ${styles["upcoming_appointments"]} p-2`}>
+                        <UpcomingAppointments />
+                    </div>
+                </div>
             </div>
         </div>
     );

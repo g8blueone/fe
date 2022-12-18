@@ -58,7 +58,7 @@ export const AddPrescriptionForm = ({ appointment }) => {
 
             <div className={'d-flex flex-row justify-content-end mt-5'}>
                 <CustomButton
-                    title={"Add"}
+                    title={"Save"}
                     styleClass={"buttonPrimary"}
                     type="submit"
                 />

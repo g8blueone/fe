@@ -65,6 +65,7 @@ export const AppointmentTableRow = ({ app, getA }) => {
             </TableCell>
             <TableCell>{app.date}</TableCell>
             <TableCell>{app.time.substring(0, 5)}</TableCell>
+            <TableCell>{app.location}</TableCell>
             <TableCell>{app.doctor_name}</TableCell>
             <TableCell>{app.patient_name}</TableCell>
             <TableCell
@@ -162,7 +163,7 @@ export const AppointmentTableRow = ({ app, getA }) => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        Add Prescription
+                        Prescription
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
