@@ -19,11 +19,11 @@ export const AppointmentCard = ({ appointment }) => {
                 setPeriod("this_week_month");
                 setPeriodText("this week");
             }
-            else if(month == currentMonth) {
+            else if (month === currentMonth) {
                 setPeriod("this_week_month");
                 setPeriodText("this month");
             }
-            else if (month == (currentMonth % 12 + 1)) {
+            else if (month === (currentMonth % 12 + 1)) {
                 setPeriod("next_month");
                 setPeriodText("next month");
             }
@@ -42,11 +42,40 @@ export const AppointmentCard = ({ appointment }) => {
                 </p>
             </div>
 
-            <div className={`${styles["lower_container"]} d-flex flex-column justify-content-center align-items-center`}>
-                <p>{appointment.type}</p>
-                <p>Date: {appointment.date}</p>
-                <p>Time: {appointment.time.substring(0, 5)}</p>
-                <p>Place: {appointment.location}</p>
+            <div className={`${styles["lower_container"]} d-flex flex-column`}>
+                <p className="d-flex flex-column align-items-center">
+                    <strong>
+                        {appointment.type}
+                    </strong>
+                </p>
+
+                <label className={styles.appointment_label}>
+                    Date
+                </label>
+                <p className={styles.appointment_text}>
+                    {appointment.date}
+                </p>
+
+
+                <div className={`d-flex flex-row justify-content-sm-between`}>
+                    <div>
+                        <label className={styles.appointment_label}>
+                            Time
+                        </label>
+                        <p className={styles.appointment_text}>
+                            {appointment.time.substring(0, 5)}
+                        </p>
+                    </div>
+                    <div>
+                        <label className={styles.appointment_label}>
+                            Place
+                        </label>
+                        <p className={styles.appointment_text}>
+                            {appointment.location}
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </>
     );
