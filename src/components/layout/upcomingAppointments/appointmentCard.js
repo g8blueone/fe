@@ -50,19 +50,19 @@ export const AppointmentCard = ({ appointment }) => {
                 </p>
 
                 <label className={styles.appointment_label}>
-                    Date
+                    Place
                 </label>
                 <p className={styles.appointment_text}>
-                    {appointment.date}
+                    {appointment.location}
                 </p>
 
                 <div className={`d-flex flex-row justify-content-sm-between`}>
                     <div>
                         <label className={styles.appointment_label}>
-                            Place
+                            Date
                         </label>
                         <p className={styles.appointment_text}>
-                            {appointment.location}
+                            {appointment.date}
                         </p>
                     </div>
                     <div>
