@@ -16,7 +16,7 @@ export const UpcomingAppointments = () => {
                 const upcomingApps = response.data.filter(function (app) {
                     let currentDate = new Date().toJSON().slice(0, 10);
                     return app.date >= currentDate;
-                  });
+                });
                 setAppointments(upcomingApps);
             });
     }

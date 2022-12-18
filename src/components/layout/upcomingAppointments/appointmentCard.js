@@ -56,22 +56,21 @@ export const AppointmentCard = ({ appointment }) => {
                     {appointment.date}
                 </p>
 
-
                 <div className={`d-flex flex-row justify-content-sm-between`}>
-                    <div>
-                        <label className={styles.appointment_label}>
-                            Time
-                        </label>
-                        <p className={styles.appointment_text}>
-                            {appointment.time.substring(0, 5)}
-                        </p>
-                    </div>
                     <div>
                         <label className={styles.appointment_label}>
                             Place
                         </label>
                         <p className={styles.appointment_text}>
                             {appointment.location}
+                        </p>
+                    </div>
+                    <div>
+                        <label className={styles.appointment_label}>
+                            Time
+                        </label>
+                        <p className={styles.appointment_text}>
+                            {appointment.time.substring(0, 5)}
                         </p>
                     </div>
                 </div>
