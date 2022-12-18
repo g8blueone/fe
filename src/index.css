@@ -13,7 +13,6 @@ code {
 }
 
 :root {
-  overflow: hidden;
   --color-gray: #D2D2D2;
   --color-bg: #F3F8FD;
   --color-primary: #2785FF;
