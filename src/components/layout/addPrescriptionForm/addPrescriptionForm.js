@@ -8,14 +8,13 @@ import { CustomButton } from "../../basic/btn/btn";
 import styles from './addPrescriptionForm.module.css';
 
 export const AddPrescriptionForm = ({ appointment }) => {
-    //const { prescription } = appointment.prescription;
     const [appointmentPrescription, setAppointmentPrescription] = useState("");
     const [issueDate, setIssueDate] = useState(new Date());
     const [expirationDate, setExpirationDate] = useState(new Date());
     const [compensated, setCompensated] = useState(1);
-    const [appId, setAppId] = useState("");
+    const [appId, setAppId] = useState(appointment.id_appointment);
     const [diagId, setDiagId] = useState("");
-    const [patientCnp, setPatientCnp] = useState("");
+    const [patientCnp, setPatientCnp] = useState(appointment.patient_cnp);
 
     
     const appointmentPrescriptionHandler = (e) => {
@@ -32,7 +31,7 @@ export const AddPrescriptionForm = ({ appointment }) => {
     }, []);
 
     const getPrescriptionData = () => {
-        fetch(`http://localhost:5000/diagnostics/?id=${1}`)
+        fetch(`http://localhost:5000/diagnostics/?id=${appId}`)
             .then(response => response.json())
             .then(response => {
                 let diag = response.data[0]
@@ -46,15 +45,17 @@ export const AddPrescriptionForm = ({ appointment }) => {
             });
     }
 
-    const addPrescription = async (appId, diagId, prescription, compensated, expirationDate, issueDate, patientCnp) => {
+    const addPrescription = async () => {
+        const dateFormat = "YYYY-MM-DD";
         const status = new Promise((resolve) => {
             axios
-                .put(`http://localhost:5000/appointments/${appId}`, {
+                .post(`http://localhost:5000/diagnostics/`, {
+                    id_appointment: appId,
                     compensated: compensated,
-                    id_diagnostic: diagId,
-                    expiration_date: expirationDate,
+                    issue_date: moment(issueDate).format(dateFormat),
+                    expiration_date: moment(expirationDate).format(dateFormat),
                     patient_cnp: patientCnp,
-                    prescription: prescription,
+                    prescription: appointmentPrescription,
                 })
                 .catch((error) => {
                     console.log(error);

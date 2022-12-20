@@ -95,7 +95,7 @@ export const AppointmentTableRow = ({ app, getA }) => {
                         onClick={showAddHandler}
                         data-toggle="modal"
                     >
-                        <img src={addPrescription} alt="add prescription" className={`h-100 ${styles["buttonImg"]}`}></img>
+                        <img src={addPrescription} alt="prescription" className={`h-100 ${styles["buttonImg"]}`}></img>
                     </Button>
                 </OverlayTrigger>
                 <OverlayTrigger
