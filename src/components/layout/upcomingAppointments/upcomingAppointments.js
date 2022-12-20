@@ -10,7 +10,7 @@ export const UpcomingAppointments = () => {
     }, []);
 
     const getAppointments = () => {
-        fetch(`http://localhost:5000/appointments/?sortMode=ASC&sortField=dateField`)
+        fetch(`http://localhost:5000/appointments/?sortMode=ASC&sortField=dateField&id=1`)
             .then(response => response.json())
             .then(response => {
                 const upcomingApps = response.data.filter(function (app) {
