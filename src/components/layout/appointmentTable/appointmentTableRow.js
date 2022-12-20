@@ -78,7 +78,7 @@ export const AppointmentTableRow = ({ app, getA }) => {
                 <OverlayTrigger
                     overlay={
                         <Tooltip id={`tooltip-top`}>
-                            Add prescription
+                            Results
                         </Tooltip>
                     }
                 >

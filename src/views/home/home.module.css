@@ -1,5 +1,6 @@
 .wrapper {
     gap: 20px;
+    width: 100vw;
     background-color: var(--color-bg);
 }
 
