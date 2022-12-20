@@ -126,7 +126,7 @@ export function DoctorTable() {
                         <img src={search} alt="search" className={`h-100 ${styles["buttonImg"]}`}></img>
                     </div>
                 </div>
-                <div className="d-flex flex-row-reverse justify-content-between col-6">
+                {/* <div className="d-flex flex-row-reverse justify-content-between col-6">
                     <Link to="/doctors/create">
                         <Button
                             className={`${styles["rowBtn"]} mb-2`}
@@ -142,7 +142,7 @@ export function DoctorTable() {
                             <img src={plus} alt="add" className={`h-100 ${styles["buttonImg"]}`}></img>
                         </Button>
                     </Link>
-                </div>
+                </div> */}
             </div>
             
             <TableContainer component={Paper} >

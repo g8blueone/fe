@@ -7,7 +7,7 @@ import { CustomButton } from "../../basic/btn/btn";
 
 import styles from './addPrescriptionForm.module.css';
 
-export const AddPrescriptionForm = ({ appointment }) => {
+export const AddPrescriptionForm = ({ appointment, close }) => {
     const [appointmentPrescription, setAppointmentPrescription] = useState("");
     const [issueDate, setIssueDate] = useState(new Date());
     const [expirationDate, setExpirationDate] = useState(new Date());
@@ -63,6 +63,7 @@ export const AddPrescriptionForm = ({ appointment }) => {
                 })
                 .then(() => {
                     getPrescriptionData();
+                    close();
                 })
         });
         const result = await status;

@@ -17,7 +17,7 @@ const createAppointment = async (appointmentPatient, location, appointmentDoctor
         axios
             .post(APPOINTMENTS_API, {
                 patient_name: "1",
-                doctor_name: "Dr Blue",
+                doctor_name: "Dr. Blue",
                 location: location,
                 date: moment(appointmentDate).format(dateFormat),
                 time: appointmentTime,
@@ -144,7 +144,6 @@ export function AppointmentForm() {
                         <MenuItem value={"20:00"}>20:00</MenuItem>
                         <MenuItem value={"21:00"}>21:00</MenuItem>
                         <MenuItem value={"22:00"}>22:00</MenuItem>
-                        <MenuItem value={"23:00"}>23:00</MenuItem>
                     </Select>
                 </div>
                 <div className="form-group d-flex flex-column">

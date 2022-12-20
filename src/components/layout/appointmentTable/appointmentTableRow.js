@@ -167,7 +167,7 @@ export const AppointmentTableRow = ({ app, getA }) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddPrescriptionForm appointment={app}/>
+                    <AddPrescriptionForm appointment={app} close={closeAddHandler}/>
                 </Modal.Body>
             </Modal>
         </TableRow >

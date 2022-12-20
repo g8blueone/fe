@@ -29,7 +29,7 @@ export const AppointmentCard = ({ appointment }) => {
             }
             else {
                 setPeriod("more");
-                setPeriodText("mai asteapta");
+                setPeriodText("later this year");
             }
         }
     }, []);
