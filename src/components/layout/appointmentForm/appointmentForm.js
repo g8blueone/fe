@@ -16,7 +16,7 @@ const createAppointment = async (appointmentPatient, location, appointmentDoctor
     const status = new Promise((resolve) => {
         axios
             .post(APPOINTMENTS_API, {
-                patient_name: appointmentPatient,
+                patient_name: "1",
                 doctor_name: "Dr Blue",
                 location: location,
                 date: moment(appointmentDate).format(dateFormat),

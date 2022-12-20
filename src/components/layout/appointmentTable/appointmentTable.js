@@ -93,7 +93,8 @@ export function AppointmentTable() {
 
     const getAppointments = () => {
         fetch(`http://localhost:5000/appointments/` +
-        `?sortMode=${orderDirection.toUpperCase()}&sortField=${valueToOrderBy}Field&page=${page}&search=${searchTerm}`)
+        `?sortMode=${orderDirection.toUpperCase()}&sortField=${valueToOrderBy}Field&page=${page}&search=${searchTerm}&id=${1}`,
+         {mode:'cors'})
             .then(response => response.json())
             .then(response => {
                 setTotalPages(response.meta.pages)
