@@ -94,10 +94,10 @@ export function AppointmentForm() {
                         <DateTimePicker
                             dateFormat="yyyy-MM-dd"
                             selected={appointmentDate}
+                            calendarStartDay={1}
                             onChange={
                                 (date) => {
                                     setAppointmentDate(date);
-                                    console.log(date);
                                 }
                             }
                             minDate={moment().toDate()}

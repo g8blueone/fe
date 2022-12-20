@@ -1,0 +1,42 @@
+.upper_container {
+    border-radius: 15px 15px 0px 0px;
+    height: 50px;
+    width: 180px;
+    white-space: nowrap;
+    z-index: -1;
+}
+
+.this_week_month {
+    background: var(--color-tertiary);
+}
+
+.next_month {
+    background: var(--color-secondary);
+}
+
+.more {
+    background: var(--color-primary);
+}
+
+.when {
+    color: #ffffff;
+}
+
+.lower_container {
+    width: 180px;
+    height: 200px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 25px;
+    margin-top: -22px;
+    z-index: 1;
+    border: 1px solid var(--color-gray);
+}
+
+.appointment_text {
+    color: #2e2e30;
+}
+
+.appointment_label {
+    color: #b1b5b9;
+}
