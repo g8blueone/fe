@@ -57,11 +57,11 @@ export const DoctorTableRow = ({ app, getA }) => {
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
             <TableCell component="th" scope="row">
-                {app.name}
+                {app.first_name} {app.last_name}
             </TableCell>
             <TableCell>{app.specialization}</TableCell>
             <TableCell>{app.hospital}</TableCell>
-            <TableCell>{app.location}</TableCell>
+            <TableCell>{app.position}</TableCell>
             <TableCell
                 sx={{
                     width: "100px",

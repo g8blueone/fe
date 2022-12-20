@@ -92,8 +92,8 @@ export function DoctorTable() {
 
 
     const getDoctors = () => {
-        fetch(`http://localhost:5000/doctors/` +
-        `?sortMode=${orderDirection.toUpperCase()}&sortField=${valueToOrderBy}Field&page=${page}&search=${searchTerm}`)
+        fetch(`http://localhost:5000/doctor/` +
+        `?page=${page}`)
             .then(response => response.json())
             .then(response => {
                 setTotalPages(response.meta.pages)

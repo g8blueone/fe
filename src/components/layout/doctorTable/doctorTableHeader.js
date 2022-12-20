@@ -46,13 +46,13 @@ export default function TableHeader(propsSorting) {
                     </TableSortLabel>
                 </TableCell>
 
-                <TableCell key="location">
+                <TableCell key="position">
                     <TableSortLabel
-                        active={valueToOrderBy === "location"}
-                        direction={valueToOrderBy === "location" ? orderDirection : 'asc'}
-                        onClick={createSortHandler("location")}
+                        active={valueToOrderBy === "position"}
+                        direction={valueToOrderBy === "position" ? orderDirection : 'asc'}
+                        onClick={createSortHandler("position")}
                     >
-                        Location
+                        Position
                     </TableSortLabel>
                 </TableCell>
 
