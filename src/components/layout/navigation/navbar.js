@@ -46,7 +46,7 @@ export function NavBar() {
                 }
             </ul>
             <div className={`col-1 d-flex justify-content-end`}>
-                <Link>
+                <Link to={"/"}>
                     <img src={logout} alt="logout" className={`h-100 p-3 ${styles["logout"]}`}></img>
                 </Link>
             </div>
