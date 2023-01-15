@@ -93,7 +93,7 @@ export function AppointmentTable() {
 
     const getAppointments = () => {
         fetch(`http://localhost:5000/appointments/` +
-        `?sortMode=${orderDirection.toUpperCase()}&sortField=${valueToOrderBy}Field&page=${page}&search=${searchTerm}&id=${1}`,
+        `?sortMode=${orderDirection.toUpperCase()}&sortField=${valueToOrderBy}Field&page=${page}&search=${searchTerm}&id=${sessionStorage.getItem('token')}&user_type=${sessionStorage.getItem('userType')}`,
          {mode:'cors'})
             .then(response => response.json())
             .then(response => {
