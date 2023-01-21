@@ -86,6 +86,7 @@ export const AppointmentEditForm = ({ appointment, getA }) => {
             type={"text"}
             value={appointmentPatient}
             onChangeHandler={patientNameHandler}
+            disabled={true}
           />
         </div>
         <div className="form-group">

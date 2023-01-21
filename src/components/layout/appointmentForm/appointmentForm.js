@@ -26,8 +26,7 @@ const createAppointment = async (
       .post(APPOINTMENTS_API, {
         user_type: sessionStorage.getItem("userType"),
         token: sessionStorage.getItem("token"),
-        patient_name: "1",
-        doctor_name: "Dr. Blue",
+        patient_name: appointmentPatient,
         location: location,
         date: moment(appointmentDate).format(dateFormat),
         time: appointmentTime,
