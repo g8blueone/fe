@@ -4,65 +4,65 @@ import styles from "./doctorTable.module.css";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const selectDoctor = async (doctorId, getA) => {
-    const status = new Promise((resolve) => {
-        axios
-            .select(`http://localhost:5000/doctors/${doctorId}`)
-            .catch((error) => {
-                console.log(error);
-                resolve(false);
-            })
-            .then(() => {
-                getA();
-            })
-    });
-    const result = await status;
-    return result;
+  const status = new Promise((resolve) => {
+    axios
+      .select(`http://localhost:5000/doctors/${doctorId}`)
+      .catch((error) => {
+        console.log(error);
+        resolve(false);
+      })
+      .then(() => {
+        getA();
+      });
+  });
+  const result = await status;
+  return result;
 };
 
 export const DoctorTableRow = ({ app, getA }) => {
-    const [show, setShow] = useState(false);
-    const [showAdd, setShowAdd] = useState(false);
+  const [show, setShow] = useState(false);
+  const [showAdd, setShowAdd] = useState(false);
 
-    const showHandler = () => {
-        setShow(true);
-    }
+  const showHandler = () => {
+    setShow(true);
+  };
 
-    const closeHandler = () => {
-        setShow(false);
-    }
+  const closeHandler = () => {
+    setShow(false);
+  };
 
-    const showAddHandler = () => {
-        setShowAdd(true);
-    }
+  const showAddHandler = () => {
+    setShowAdd(true);
+  };
 
-    const closeAddHandler = () => {
-        setShowAdd(false);
-    }
+  const closeAddHandler = () => {
+    setShowAdd(false);
+  };
 
-    useEffect(() => {
-        closeHandler();
-        closeAddHandler();
-    }, [app]);
+  useEffect(() => {
+    closeHandler();
+    closeAddHandler();
+  }, [app]);
 
-    const selectHandler = async (e) => {
-        const response = await selectDoctor(app.id_doctor, getA);
-    }
+  const selectHandler = async (e) => {
+    const response = await selectDoctor(app.id_doctor, getA);
+  };
 
-    return (
-        <TableRow
-            key={app.id_doctor}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-            <TableCell component="th" scope="row">
-                {app.first_name} {app.last_name}
-            </TableCell>
-            <TableCell>{app.specialization}</TableCell>
-            <TableCell>{app.hospital}</TableCell>
-            <TableCell>{app.position}</TableCell>
-            <TableCell
+  return (
+    <TableRow
+      key={app.id_doctor}
+      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+    >
+      <TableCell component="th" scope="row">
+        {app.first_name} {app.last_name}
+      </TableCell>
+      <TableCell>{app.specialization}</TableCell>
+      <TableCell>{app.hospital}</TableCell>
+      <TableCell>{app.position}</TableCell>
+      {/* <TableCell
                 sx={{
                     width: "100px",
                     display: "flex",
@@ -92,7 +92,7 @@ export const DoctorTableRow = ({ app, getA }) => {
                     </Button>
                 </OverlayTrigger>
 
-            </TableCell>
-        </TableRow >
-    );
-}
+            </TableCell> */}
+    </TableRow>
+  );
+};

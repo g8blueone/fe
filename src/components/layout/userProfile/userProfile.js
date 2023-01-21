@@ -12,7 +12,7 @@ import axios from "axios";
 export function UserProfile() {
   const [isEditing, setIsEditing] = useState(false);
   const [isDoctor, setIsDoctor] = useState(
-    sessionStorage.getItem("userType") === "pacient" ? false : true
+    sessionStorage.getItem("userType") === "patient" ? false : true
   );
   const [userId, setUserId] = useState(sessionStorage.getItem("token"));
   const [first_name, setFirstName] = useState("");
@@ -167,11 +167,11 @@ export function UserProfile() {
     const status = new Promise((resolve) => {
       axios
         .put(
-          `http://localhost:5000/doctor?id=${userId}`,
+          `http://localhost:5000/doctor/`,
           {
+            id: userId,
             first_name: first_name,
             last_name: last_name,
-            email: email,
             specialization: specialization,
             hospital: hospital,
             position: position,
@@ -237,7 +237,7 @@ export function UserProfile() {
           ></img>
         </div>
         <div className={`align-self-center ${styles[""]}`}>
-          <h3>
+          <h3 className="text-center">
             {first_name}&nbsp;{last_name}
           </h3>
         </div>
@@ -287,7 +287,7 @@ export function UserProfile() {
           <div className="d-flex flex-column g-2 ms-3 me-3">
             <label>Email</label>
             <CustomInput
-              disabled={!isEditing}
+              disabled={true}
               type={"text"}
               hint="Please enter..."
               onChangeHandler={emailHandler}
@@ -300,7 +300,7 @@ export function UserProfile() {
             >
               <label>Date of Birth</label>
               <DateTimePicker
-                disabled={!isEditing}
+                disabled={true}
                 dateFormat="yyyy-MM-dd"
                 selected={date_of_birth}
                 onChange={(date) => {
