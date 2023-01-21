@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { AppointmentCard } from "./appointmentCard";
 import styles from "./upcomingAppointments.module.css";
+import urlString from "../../../url";
 
 export const UpcomingAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -11,7 +12,7 @@ export const UpcomingAppointments = () => {
 
   const getAppointments = () => {
     fetch(
-      `http://localhost:5000/appointments/?sortMode=ASC&sortField=dateField&id=${sessionStorage.getItem(
+      `${urlString}appointments/?sortMode=ASC&sortField=dateField&id=${sessionStorage.getItem(
         "token"
       )}&user_type=${sessionStorage.getItem("userType")}`
     )

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datepicker";
 import moment from "moment";
 import axios from "axios";
+import urlString from "../../../url";
 
 import { Select, MenuItem } from "@mui/material";
 import { CustomInput } from "../../basic/input/input";
@@ -18,7 +19,7 @@ const createAppointment = async (
   appointmentTime,
   appointmentType
 ) => {
-  const APPOINTMENTS_API = "http://localhost:5000/appointments/";
+  const APPOINTMENTS_API = `${urlString}appointments/`;
   const dateFormat = "YYYY-MM-DD";
   const status = new Promise((resolve) => {
     axios

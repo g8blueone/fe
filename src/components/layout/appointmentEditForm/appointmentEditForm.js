@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datepicker";
 import moment from "moment";
 import axios from "axios";
+import urlString from "../../../url";
 
 import { Select, MenuItem } from "@mui/material";
 import { CustomInput } from "../../basic/input/input";
@@ -22,7 +23,7 @@ const updateAppointment = async (
   const dateFormat = "YYYY-MM-DD";
   const status = new Promise((resolve) => {
     axios
-      .put(`http://localhost:5000/appointments/${appointmentId}`, {
+      .put(`${urlString}appointments/${appointmentId}`, {
         patient_name: appointmentPatient,
         date: moment(appointmentDate).format(dateFormat),
         doctor_name: "Vasile",

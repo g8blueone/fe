@@ -8,6 +8,7 @@ import moment from "moment";
 import { CustomButton } from "../../basic/btn/btn";
 import { useEffect } from "react";
 import axios from "axios";
+import urlString from "../../../url";
 
 export function UserProfile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -122,7 +123,7 @@ export function UserProfile() {
     const status = new Promise((resolve) => {
       axios
         .put(
-          `http://localhost:5000/patient/${userId}`,
+          `${urlString}patient/${userId}`,
           {
             date_of_birth: moment(date_of_birth).format(dateFormat),
             first_name: first_name,
@@ -167,7 +168,7 @@ export function UserProfile() {
     const status = new Promise((resolve) => {
       axios
         .put(
-          `http://localhost:5000/doctor/`,
+          `${urlString}doctor/`,
           {
             id: userId,
             first_name: first_name,
@@ -195,7 +196,7 @@ export function UserProfile() {
 
   const getProfileData = () => {
     if (isDoctor) {
-      fetch(`http://localhost:5000/doctor?id=${userId}`)
+      fetch(`${urlString}doctor?id=${userId}`)
         .then((response) => response.json())
         .then((response) => {
           setFirstName(response.first_name);
@@ -206,7 +207,7 @@ export function UserProfile() {
           setHospital(response.hospital);
         });
     } else {
-      fetch(`http://localhost:5000/patient/${userId}`)
+      fetch(`${urlString}patient/${userId}`)
         .then((response) => response.json())
         .then((response) => {
           setFirstName(response.first_name);

@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import DateTimePicker from "react-datepicker";
 import { CustomButton } from "../../basic/btn/btn";
+import urlString from "../../../url";
 
 import styles from "./addPrescriptionForm.module.css";
 
@@ -33,7 +34,7 @@ export const AddPrescriptionForm = ({ appointment, close }) => {
   }, []);
 
   const getPrescriptionData = () => {
-    fetch(`http://localhost:5000/diagnostics/?id=${appId}`)
+    fetch(`${urlString}diagnostics/?id=${appId}`)
       .then((response) => response.json())
       .then((response) => {
         let diag = response.data[0];
@@ -51,7 +52,7 @@ export const AddPrescriptionForm = ({ appointment, close }) => {
     const dateFormat = "YYYY-MM-DD";
     const status = new Promise((resolve) => {
       axios
-        .post(`http://localhost:5000/diagnostics/`, {
+        .post(`${urlString}diagnostics/`, {
           id_appointment: appId,
           compensated: compensated,
           issue_date: moment(issueDate).format(dateFormat),

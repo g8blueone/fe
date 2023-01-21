@@ -10,6 +10,7 @@ import TableHeader from "./doctorTableHeader";
 import styles from "./doctorTable.module.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import urlString from "../../../url";
 
 function CustomTablePagination({ page, totalPages, onPageChange }) {
   const handleBackButtonClick = (event) => {
@@ -94,7 +95,7 @@ export function DoctorTable() {
 
   const getDoctors = () => {
     fetch(
-      `http://localhost:5000/doctor/` +
+      `${urlString}doctor/` +
         `?sortMode=${orderDirection.toUpperCase()}&sortField=${valueToOrderBy}Field&page=${page}&search=${searchTerm}`
     )
       .then((response) => response.json())

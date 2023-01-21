@@ -9,11 +9,12 @@ import axios from "axios";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { AppointmentEditForm } from "../appointmentEditForm/appointmentEditForm";
 import { AddPrescriptionForm } from "../addPrescriptionForm/addPrescriptionForm";
+import urlString from "../../../url";
 
 const delAppointment = async (appointmentId, getA) => {
   const status = new Promise((resolve) => {
     axios
-      .delete(`http://localhost:5000/appointments/${appointmentId}`)
+      .delete(`${urlString}appointments/${appointmentId}`)
       .catch((error) => {
         console.log(error);
         resolve(false);
@@ -69,8 +70,8 @@ export const AppointmentTableRow = ({ app, getA }) => {
       <TableCell>{app.date}</TableCell>
       <TableCell>{app.time.substring(0, 5)}</TableCell>
       <TableCell>{app.location}</TableCell>
-      <TableCell>{app.doctor_name}</TableCell>
-      <TableCell>{app.patient_name}</TableCell>
+      {!isDoctor && <TableCell>{app.doctor_name}</TableCell>}
+      {isDoctor && <TableCell>{app.patient_name}</TableCell>}
       <TableCell
         sx={{
           width: "100px",

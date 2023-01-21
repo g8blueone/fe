@@ -5,11 +5,12 @@ import styles from "./doctorTable.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import urlString from "../../../url";
 
 const selectDoctor = async (doctorId, getA) => {
   const status = new Promise((resolve) => {
     axios
-      .select(`http://localhost:5000/doctors/${doctorId}`)
+      .select(`${urlString}doctors/${doctorId}`)
       .catch((error) => {
         console.log(error);
         resolve(false);
